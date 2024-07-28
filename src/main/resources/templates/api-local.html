@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/head :: head}"></head>
+<body>
+<div th:insert="~{fragments/nav :: nav}"></div>
+<div class="container">
+    <h1 class="mt-5">Buscar Pokémon</h1>
+    <form action="/api-local" method="get" class="form-inline">
+        <input type="text" name="name" class="form-control mb-2 mr-sm-2" placeholder="Nombre del Pokémon">
+        <button type="submit" class="btn btn-primary mb-2">Buscar</button>
+    </form>
+    <div th:if="${pokemon != null}">
+        <h2>Información del Pokémon</h2>
+        <div>
+            <img th:src="${pokemon.sprites.front_default}" alt="Imagen de ${pokemon.name}" class="img-fluid">
+        </div>
+        <p><strong>Nombre:</strong> <span th:text="${pokemon.name}"></span></p>
+        <p><strong>ID:</strong> <span th:text="${pokemon.id}"></span></p>
+        <p><strong>Altura:</strong> <span th:text="${pokemon.height}"></span></p>
+        <p><strong>Peso:</strong> <span th:text="${pokemon.weight}"></span></p>
+        <h3>Tipos</h3>
+        <ul>
+            <li th:each="type : ${pokemon.types}">
+                <span th:text="${type.type.name}"></span>
+            </li>
+        </ul>
+        <h3>Stats</h3>
+        <ul>
+            <li th:each="stat : ${pokemon.stats}">
+                <span th:text="${stat.stat.name}"></span>
+                <span th:text="${stat.base_stat}"></span>
+            </li>
+        </ul>
+
+    </div>
+</div>
+</body>
+</html>
+
